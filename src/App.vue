@@ -31,23 +31,25 @@ export default {
         username: "",
         email: ""
       },
-      users: []
+      users: [],
+      resource: {}
     };
   },
   methods: {
     submitForm() {
-      this.$http.post("", this.user).then(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    //   this.$http.post("data.json", this.user).then(
+    //     response => {
+    //       console.log(response);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   );
+    this.resource.save({}, this.user);
     },
     fetchData() {
       this.$http
-        .get("")
+        .get("data.json")
         .then(response => {
           return response.json();
         })
@@ -64,6 +66,9 @@ export default {
           }
         );
     }
+  },
+  created(){
+      this.resource = this.$resource('data.json')
   }
 };
 </script>
