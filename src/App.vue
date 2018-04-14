@@ -36,20 +36,18 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$http
-        .post("https://vuejs-http-17bf6.firebaseio.com/data.json", this.user)
-        .then(
-          response => {
-            console.log(response);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      this.$http.post("", this.user).then(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     },
     fetchData() {
       this.$http
-        .get("https://vuejs-http-17bf6.firebaseio.com/data.json")
+        .get("")
         .then(response => {
           return response.json();
         })
