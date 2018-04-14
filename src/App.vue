@@ -12,6 +12,8 @@
                     <input id="email" type="text" class="form-control" name="email" v-model="user.email">
                 </div>
                 <button class="btn btn-primary" type="submit" @click="submitForm">Submit</button>
+                <hr>
+                <input id="node" type="text" class="form-control" name="node" v-model="node">
                 <br><br>
                 <button class="btn btn-primary" type="button" @click="fetchData">Get Data</button>
                 <br><br>
@@ -32,7 +34,8 @@ export default {
         email: ""
       },
       users: [],
-      resource: {}
+      resource: {},
+      node: "data"
     };
   },
   methods: {
@@ -49,8 +52,25 @@ export default {
       this.resource.saveAlt(this.user);
     },
     fetchData() {
-      this.$http
-        .get("data.json")
+      //   this.$http
+      //     .get("data.json")
+      //     .then(response => {
+      //       return response.json();
+      //     })
+      //     .then(
+      //       data => {
+      //         const resultArray = [];
+      //         for (let key in data) {
+      //           resultArray.push(data[key]);
+      //         }
+      //         this.users = resultArray;
+      //       },
+      //       err => {
+      //         console.error(err);
+      //       }
+      //     );
+      this.resource
+        .getData({ node: this.node })
         .then(response => {
           return response.json();
         })
@@ -70,9 +90,10 @@ export default {
   },
   created() {
     const customActions = {
-      saveAlt: { method: "POST", url: "alternative.json" }
+      saveAlt: { method: "POST", url: "alternative.json" },
+      getData: { method: "GET" }
     };
-    this.resource = this.$resource("data.json", {}, customActions);
+    this.resource = this.$resource("{node}.json", {}, customActions);
   }
 };
 </script>
