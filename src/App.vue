@@ -37,15 +37,16 @@ export default {
   },
   methods: {
     submitForm() {
-    //   this.$http.post("data.json", this.user).then(
-    //     response => {
-    //       console.log(response);
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     }
-    //   );
-    this.resource.save({}, this.user);
+      //   this.$http.post("data.json", this.user).then(
+      //     response => {
+      //       console.log(response);
+      //     },
+      //     error => {
+      //       console.log(error);
+      //     }
+      //   );
+      // this.resource.save({}, this.user);
+      this.resource.saveAlt(this.user);
     },
     fetchData() {
       this.$http
@@ -67,8 +68,11 @@ export default {
         );
     }
   },
-  created(){
-      this.resource = this.$resource('data.json')
+  created() {
+    const customActions = {
+      saveAlt: { method: "POST", url: "alternative.json" }
+    };
+    this.resource = this.$resource("data.json", {}, customActions);
   }
 };
 </script>
